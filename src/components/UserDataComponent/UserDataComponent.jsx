@@ -4,18 +4,7 @@ import React, { useEffect, useState } from 'react';
 const UserDataComponent = () => {
   const [userData, setUserData] = useState('');
 
-  useEffect(() => {
-    axios.post(`http://localhost:3500/api/v1/userdata`,{
-      token: window.localStorage.getItem('token'),
-    })
-    .then((response) => {
-      console.log(response.data)
-        setUserData(response.data)
-    })
-    .catch((error) => {
-      alert(`Status : ${error.response.status} - ${error.response.data.message}`)
-  })
-  }, []);
+
 
   return (
     <React.Fragment>
