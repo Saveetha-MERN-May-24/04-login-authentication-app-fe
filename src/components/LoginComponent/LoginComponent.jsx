@@ -18,7 +18,24 @@ const LoginComponent = () => {
     const formSubmitHandler = (event) =>{
         event.preventDefault()
         
-        alert(`Email : ${email}, Password : ${password}`)
+        axios
+          .post(`http://localhost:3500/api/v1/login`,
+            {
+              email:email,
+              password:password
+            }
+          )
+          .then((response) => {
+            if (response.status == 201)
+              {
+                alert(`Welcome ${response.data.firstName} ${response.data.lastName} !`)
+                window.localStorage.setItem('token', response.data.token)
+                window.location.href = '/userdata'
+              }
+          }) 
+          .catch((error) => {
+            alert(`Status : ${error.response.status} - ${error.response.data.message}`)
+          })
       }
 
 

@@ -27,7 +27,15 @@ const SignupComponent = () => {
     const formSubmitHandler = (event) => {
         event.preventDefault()
 
-        alert(`Input data : ${firstName},${lastName},${email},${password}`)
+        axios
+          .post(`http://localhost:3500/api/v1/signup`, {firstName, lastName, email, password})
+          .then((response) => {
+            alert(`Successfully created account for ${response.data.firstName} ${response.data.lastName}`)
+            window.location.href = '/'
+          })
+          .catch((error) => {
+            alert(`Status : ${error.response.status} - ${error.response.data.message}`)
+          })
     }
 
   return (

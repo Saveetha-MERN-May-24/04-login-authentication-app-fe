@@ -2,9 +2,20 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const UserDataComponent = () => {
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState({});
 
-
+useEffect(() => {
+  console.log(window.localStorage.getItem('token'))
+  axios
+    .post(`http://localhost:3500/api/v1/userdata`,
+      {
+        token : window.localStorage.getItem('token')
+      })
+    .then(response => setUserData(response.data))
+    .catch((error) => {
+      alert(`Status : ${error.response.status} - ${error.response.data.message}`)
+    })
+})
 
   return (
     <React.Fragment>
